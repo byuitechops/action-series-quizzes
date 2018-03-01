@@ -81,7 +81,7 @@ function deleteItem(course, quiz, callback) {
 
 /* PUT an item back into Canvas with updates */
 function putItem(course, quiz, callback) {
-    if (quiz.delete == true) {
+    if (quiz.techops.delete === true) {
         deleteItem(course, quiz, callback);
         return;
     }
