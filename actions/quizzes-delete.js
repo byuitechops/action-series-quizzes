@@ -1,34 +1,33 @@
-module.exports = (course, file, callback) => {
+module.exports = (course, quiz, callback) => {
 
     /* If the item is marked for deletion, do nothing */
-    if (file.techops.delete == true) {
-        callback(null, course, file);
+    if (quiz.techops.delete == true) {
+        callback(null, course, quiz);
         return;
     }
 
-    /* Pages to be deleted, in LOWER case */
+    /* Quizzes to be deleted, in LOWER case */
     var doomedItems = [
-        // /guidelines\s*for\s*button/gi,
-        // /discussion\sforums/gi,
+        // some regex here to catch the quiz titles to be deleted
     ];
 
     /* The test returns TRUE or FALSE - action() is called if true */
-    var found = doomedItems.find(item => item.test(file.display_name));
+    var found = doomedItems.find(item => item.test(quiz.title));
 
     /* This is the action that happens if the test is passed */
     function action() {
-        file.techops.delete = true;
-        course.log('Files Deleted', {
-            'Title': file.display_name,
-            'ID': file.id
+        quiz.techops.delete = true;
+        quiz.techops.log('Quizzes Deleted', {
+            'Title': quiz.title,
+            'ID': quiz.id
         });
-        callback(null, course, file);
+        callback(null, course, quiz);
     }
 
     if (found != undefined) {
         action();
     } else {
-        callback(null, course, file);
+        callback(null, course, quiz);
     }
 
 };

@@ -3,7 +3,7 @@ const canvas = require('canvas-wrapper');
 
 /* Actions */
 var actions = [
-    require('./actions/quizzes-delete.js'),
+    // require('./actions/quizzes-delete.js'),
 ];
 
 class TechOps {
@@ -15,8 +15,25 @@ class TechOps {
         this.getTitle = getTitle;
         this.setTitle = setTitle;
         this.getID = getID;
+        this.logs = [];
         this.delete = false;
         this.type = 'Quiz';
+    }
+
+    log(title, details) {
+        this.logs.push({ title, details });
+    }
+
+    message(message) {
+        this.logs.push({ title: 'message', details: { message: message }});
+    }
+
+    warning(warning) {
+        this.logs.push({ title: 'warning', details: { warning: warning }});
+    }
+
+    error(error) {
+        this.logs.push({ error: error });
     }
 }
 
@@ -46,25 +63,15 @@ function buildPutObj(quiz) {
             'quiz_type': quiz.quiz_type,
             'assignment_group_id': quiz.assignment_group_id,
             'time_limit': quiz.time_limit,
-            'shuffle_answers': quiz.shuffle_answers,
-            'hide_results': quiz.hide_results,
             'show_correct_answers': quiz.show_correct_answers,
             'show_correct_answers_last_attempt': quiz.show_correct_answers_last_attempt,
             'show_correct_answers_at': quiz.show_correct_answers_at,
             'hide_correct_answers_at': quiz.hide_correct_answers_at,
             'allowed_attempts': quiz.allowed_attempts,
-            'scoring_policy': quiz.scoring_policy,
-            'one_question_at_a_time': quiz.one_question_at_a_time,
-            'cant_go_back': quiz.cant_go_back,
-            'access_code': quiz.access_code,
-            'ip_filter': quiz.ip_filter,
             'due_at': quiz.due_at,
             'lock_at': quiz.lock_at,
             'unlock_at': quiz.unlock_at,
             'published': quiz.published,
-            'one_time_results': quiz.one_time_results,
-            'only_visible_to_overrides': quiz.only_visible_to_overrides,
-            'notify_of_update': quiz.notify_of_update,
         }
     };
 }
@@ -96,11 +103,11 @@ function putItem(course, quiz, callback) {
 }
 
 function getHTML(item) {
-    return null;
+    return item.description;
 }
 
 function setHTML(item, newHTML) {
-    return null;
+    item.description = newHTML;
 }
 
 function getTitle(item) {
