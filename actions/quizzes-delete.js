@@ -40,7 +40,7 @@ module.exports = (course, quiz, callback) => {
             callback(null, course, quiz);
         }
     } catch (e) {
-        course.error(e);
+        course.error(new Error(e));
         callback(null, course, quiz);
     }
 };
