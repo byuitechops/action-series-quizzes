@@ -131,6 +131,7 @@ function getID(item) {
 }
 
 module.exports = {
+    prefix: 'quizzes',
     actions: actions,
     getItems: getItems,
     putItem: putItem,
