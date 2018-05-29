@@ -44,3 +44,7 @@ module.exports = (course, quiz, callback) => {
         callback(null, course, quiz);
     }
 };
+
+module.exports.details = {
+    title: 'quizzes-delete'
+}
